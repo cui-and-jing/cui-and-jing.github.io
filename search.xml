@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>第一篇正式文章</title>
+      <link href="/2026/06/14/first-post/"/>
+      <url>/2026/06/14/first-post/</url>
+      
+        <content type="html"><![CDATA[<h2 id="开始写点东西"><a href="#开始写点东西" class="headerlink" title="开始写点东西"></a>开始写点东西</h2><p>博客搭好了，总得写点什么。</p><p>其实写博客这件事，想做很久了。总觉得要等到”准备好了”才开始——技术够硬了、文笔够好了、有足够时间了。</p><p>但事实是，<strong>永远没有准备好的那一天</strong>。</p><h3 id="所以就从现在开始"><a href="#所以就从现在开始" class="headerlink" title="所以就从现在开始"></a>所以就从现在开始</h3><p>不需要长篇大论，不需要字字珠玑。记录本身就是意义。</p><p>今天做了什么、学到了什么、想了什么——写下来就好。</p><h3 id="一个小目标"><a href="#一个小目标" class="headerlink" title="一个小目标"></a>一个小目标</h3><p>先坚持写 30 天。不管质量如何，先把习惯建立起来。</p><blockquote><p>“The best time to plant a tree was 20 years ago. The second best time is now.”</p></blockquote><p>种一棵树最好的时间是十年前，其次是现在。</p><hr><p><em>今天是博客上线第一天，记录一下。</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活日常 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+            <tag> 思考 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用 GitHub Actions 自动部署 Hexo 博客</title>
+      <link href="/2026/06/14/github-actions-deploy/"/>
+      <url>/2026/06/14/github-actions-deploy/</url>
+      
+        <content type="html"><![CDATA[<h2 id="为什么用-GitHub-Actions？"><a href="#为什么用-GitHub-Actions？" class="headerlink" title="为什么用 GitHub Actions？"></a>为什么用 GitHub Actions？</h2><p>相比 <code>hexo deploy</code>，GitHub Actions 有以下优势：</p><ul><li>✅ 源码和构建产物分离</li><li>✅ 自动触发，push 即部署</li><li>✅ 可以做更多自动化（检查、优化等）</li><li>✅ 构建日志可追溯</li></ul><h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>在项目根目录创建 <code>.github/workflows/deploy.yml</code>：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">Blog</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">submodules:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;20&#x27;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">ci</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npx</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure><h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本地写文章 → git push → GitHub Actions 触发 → 构建 → 部署到 gh-pages 分支</span><br></pre></td></tr></table></figure><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol><li>仓库设置中需要将 GitHub Pages 的 source 指向 <code>gh-pages</code> 分支</li><li><code>npm ci</code> 比 <code>npm install</code> 更快更稳定</li><li>构建失败时检查 Node.js 版本和依赖</li></ol><hr><p><em>自动化让生活更美好 🚀</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CI/CD </tag>
+            
+            <tag> GitHub Actions </tag>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo 博客部署指南：GitHub Pages 一键部署</title>
+      <link href="/2026/06/14/hexo-deploy-guide/"/>
+      <url>/2026/06/14/hexo-deploy-guide/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文记录如何将 Hexo 博客部署到 GitHub Pages，实现 push 即部署。</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul><li>GitHub 账号</li><li>安装 Node.js (&gt;&#x3D; 18)</li><li>安装 Git</li></ul><h2 id="步骤一：创建-GitHub-仓库"><a href="#步骤一：创建-GitHub-仓库" class="headerlink" title="步骤一：创建 GitHub 仓库"></a>步骤一：创建 GitHub 仓库</h2><p>创建一个名为 <code>你的用户名.github.io</code> 的仓库。</p><h2 id="步骤二：本地初始化"><a href="#步骤二：本地初始化" class="headerlink" title="步骤二：本地初始化"></a>步骤二：本地初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><h2 id="步骤三：安装主题"><a href="#步骤三：安装主题" class="headerlink" title="步骤三：安装主题"></a>步骤三：安装主题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-anzhiyu</span><br></pre></td></tr></table></figure><p>在 <code>_config.yml</code> 中设置：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">anzhiyu</span></span><br></pre></td></tr></table></figure><h2 id="步骤四：本地预览"><a href="#步骤四：本地预览" class="headerlink" title="步骤四：本地预览"></a>步骤四：本地预览</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure><p>访问 <code>http://localhost:4000</code> 查看效果。</p><h2 id="步骤五：部署到-GitHub-Pages"><a href="#步骤五：部署到-GitHub-Pages" class="headerlink" title="步骤五：部署到 GitHub Pages"></a>步骤五：部署到 GitHub Pages</h2><h3 id="方式一：使用-hexo-deployer-git"><a href="#方式一：使用-hexo-deployer-git" class="headerlink" title="方式一：使用 hexo-deployer-git"></a>方式一：使用 hexo-deployer-git</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">hexo clean &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure><h3 id="方式二：使用-GitHub-Actions（推荐）"><a href="#方式二：使用-GitHub-Actions（推荐）" class="headerlink" title="方式二：使用 GitHub Actions（推荐）"></a>方式二：使用 GitHub Actions（推荐）</h3><p>在仓库中创建 <code>.github/workflows/deploy.yml</code>，每次 push 自动构建部署。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>整个流程非常简单：</p><ol><li>本地写文章 (<code>hexo new &quot;文章标题&quot;</code>)</li><li>Git push</li><li>GitHub Actions 自动构建部署</li><li>1 分钟内上线</li></ol><hr><p><em>Happy blogging! 🎉</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> GitHub </tag>
+            
+            <tag> 教程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World - 我的博客上线了</title>
+      <link href="/2026/06/14/hello-world/"/>
+      <url>/2026/06/14/hello-world/</url>
+      
+        <content type="html"><![CDATA[<h2 id="博客上线了"><a href="#博客上线了" class="headerlink" title="博客上线了"></a>博客上线了</h2><p>经过一番折腾，我的个人博客终于上线了！</p><h3 id="为什么写博客？"><a href="#为什么写博客？" class="headerlink" title="为什么写博客？"></a>为什么写博客？</h3><ol><li><strong>记录学习</strong> — 把学到的东西写下来，加深理解</li><li><strong>分享经验</strong> — 踩过的坑，希望能帮到别人</li><li><strong>沉淀思考</strong> — 写作是最好的思考方式</li></ol><h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><p>本站使用：</p><ul><li><strong><a href="https://hexo.io/">Hexo</a></strong> — 静态博客框架</li><li><strong><a href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu">AnZhiYu</a></strong> — 博客主题</li><li><strong>GitHub Pages</strong> — 托管部署</li></ul><h3 id="接下来的计划"><a href="#接下来的计划" class="headerlink" title="接下来的计划"></a>接下来的计划</h3><ul><li>写一些技术笔记</li><li>记录项目经验</li><li>分享日常生活</li></ul><blockquote><p>万事开头难，但开了头就不难了。</p></blockquote><hr><p><em>如果你也想搭建一个类似的博客，可以参考我的部署指南。</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活日常 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
