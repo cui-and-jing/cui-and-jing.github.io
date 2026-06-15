@@ -18,16 +18,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout with submodules
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+
+      - name: Clone theme
+        run: git clone -b main https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git themes/anzhiyu
 
       - name: Install dependencies
         run: |
