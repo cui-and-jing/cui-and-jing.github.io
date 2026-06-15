@@ -25,7 +25,9 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install hexo-renderer-pug hexo-renderer-stylus hexo-generator-search hexo-generator-feed hexo-generator-sitemap hexo-deployer-git --save
 
       - name: Generate static files
         run: npx hexo generate
