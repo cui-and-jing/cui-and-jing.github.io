@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: Clone theme
         run: git clone -b main https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git themes/anzhiyu
@@ -33,7 +33,14 @@ jobs:
       - name: Generate static files
         run: |
           npx hexo clean
-          npx hexo generate
+          npx hexo generate --debug
+
+      - name: Check generated files
+        run: |
+          echo "=== Public directory contents ==="
+          ls -la public/
+          echo "=== Index.html content ==="
+          cat public/index.html || echo "index.html not found"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
