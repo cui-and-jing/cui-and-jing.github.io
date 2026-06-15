@@ -98,6 +98,24 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: anzhiyu
 
+# Sitemap
+sitemap:
+  path: sitemap.xml
+  rel: false
+
+# RSS Feed
+feed:
+  enable: true
+  path: atom.xml
+  limit: 20
+  hub:
+  content: true
+  content_limit: 200
+  content_limit_delim: ' '
+  order_by: -date
+  icon: icon.png
+  autodiscovery: true
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:

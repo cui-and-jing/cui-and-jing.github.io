@@ -5,6 +5,7 @@ menu:
   归档: /archives/ || anzhiyu-icon-box-archive
   分类: /categories/ || anzhiyu-icon-shapes
   标签: /tags/ || anzhiyu-icon-tags
+  友链: /link/ || anzhiyu-icon-link
   关于: /about/ || anzhiyu-icon-paper-plane
 
 # 社交图标
@@ -27,6 +28,7 @@ aside:
   position: right
   card_author:
     enable: true
+    description: 记录技术、学习和生活
   card_recent_post:
     enable: true
     limit: 5
@@ -48,8 +50,46 @@ footer:
 # 文章封面
 cover:
   index_enable: true
+  aside_enable: true
+  archives_enable: true
+  position: left
+  default_cover:
+    - https://picsum.photos/800/400?random=1
 
 # 文章内容显示
 index_post_content:
   method: 3
   length: 500
+
+# 文章元数据
+post_meta:
+  page:
+    date_type: created
+    date_format: relative
+    categories: true
+    tags: true
+    label: false
+  post:
+    date_type: both
+    date_format: date
+    categories: true
+    tags: true
+    label: true
+
+# 版权信息
+copyright:
+  enable: true
+  author_link: https://cui-and-jing.github.io
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+# 评论系统 (Twikoo)
+comments:
+  use: twikoo
+  text: true
+
+twikoo:
+  envId: # 需要配置 Twikoo 环境 ID
+  region:
+  visitor: true
+  option:

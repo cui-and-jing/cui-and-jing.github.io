@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+
+Sitemap: https://cui-and-jing.github.io/sitemap.xml
+
+# Disallow
+Disallow: /js/
+Disallow: /css/
+Disallow: /font/
+Disallow: /img/
