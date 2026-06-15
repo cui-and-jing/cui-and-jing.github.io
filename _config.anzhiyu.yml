@@ -89,7 +89,7 @@ comments:
   text: true
 
 twikoo:
-  envId: # 需要配置 Twikoo 环境 ID
+  envId: https://twikoo-five-coral.vercel.app
   region:
   visitor: true
   option:
