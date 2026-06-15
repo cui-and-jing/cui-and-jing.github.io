@@ -4,38 +4,11 @@
   
     
     <entry>
-      <title>第一篇正式文章</title>
-      <link href="/2026/06/14/first-post/"/>
-      <url>/2026/06/14/first-post/</url>
+      <title>GitHub Pages 部署指南</title>
+      <link href="/2026/06/15/github-pages-guide/"/>
+      <url>/2026/06/15/github-pages-guide/</url>
       
-        <content type="html"><![CDATA[<h2 id="开始写点东西"><a href="#开始写点东西" class="headerlink" title="开始写点东西"></a>开始写点东西</h2><p>博客搭好了，总得写点什么。</p><p>其实写博客这件事，想做很久了。总觉得要等到”准备好了”才开始——技术够硬了、文笔够好了、有足够时间了。</p><p>但事实是，<strong>永远没有准备好的那一天</strong>。</p><h3 id="所以就从现在开始"><a href="#所以就从现在开始" class="headerlink" title="所以就从现在开始"></a>所以就从现在开始</h3><p>不需要长篇大论，不需要字字珠玑。记录本身就是意义。</p><p>今天做了什么、学到了什么、想了什么——写下来就好。</p><h3 id="一个小目标"><a href="#一个小目标" class="headerlink" title="一个小目标"></a>一个小目标</h3><p>先坚持写 30 天。不管质量如何，先把习惯建立起来。</p><blockquote><p>“The best time to plant a tree was 20 years ago. The second best time is now.”</p></blockquote><p>种一棵树最好的时间是十年前，其次是现在。</p><hr><p><em>今天是博客上线第一天，记录一下。</em></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 生活日常 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 随笔 </tag>
-            
-            <tag> 思考 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>使用 GitHub Actions 自动部署 Hexo 博客</title>
-      <link href="/2026/06/14/github-actions-deploy/"/>
-      <url>/2026/06/14/github-actions-deploy/</url>
-      
-        <content type="html"><![CDATA[<h2 id="为什么用-GitHub-Actions？"><a href="#为什么用-GitHub-Actions？" class="headerlink" title="为什么用 GitHub Actions？"></a>为什么用 GitHub Actions？</h2><p>相比 <code>hexo deploy</code>，GitHub Actions 有以下优势：</p><ul><li>✅ 源码和构建产物分离</li><li>✅ 自动触发，push 即部署</li><li>✅ 可以做更多自动化（检查、优化等）</li><li>✅ 构建日志可追溯</li></ul><h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>在项目根目录创建 <code>.github/workflows/deploy.yml</code>：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">Blog</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">submodules:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;20&#x27;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">ci</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npx</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure><h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本地写文章 → git push → GitHub Actions 触发 → 构建 → 部署到 gh-pages 分支</span><br></pre></td></tr></table></figure><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol><li>仓库设置中需要将 GitHub Pages 的 source 指向 <code>gh-pages</code> 分支</li><li><code>npm ci</code> 比 <code>npm install</code> 更快更稳定</li><li>构建失败时检查 Node.js 版本和依赖</li></ol><hr><p><em>自动化让生活更美好 🚀</em></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="什么是-GitHub-Pages？"><a href="#什么是-GitHub-Pages？" class="headerlink" title="什么是 GitHub Pages？"></a>什么是 GitHub Pages？</h2><p>GitHub Pages 是 GitHub 提供的静态网站托管服务，可以直接从 GitHub 仓库托管网站。</p><h2 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h2><h3 id="方式一：手动部署"><a href="#方式一：手动部署" class="headerlink" title="方式一：手动部署"></a>方式一：手动部署</h3><p>使用 hexo-deployer-git 插件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure><h3 id="方式二：GitHub-Actions-自动部署（推荐）"><a href="#方式二：GitHub-Actions-自动部署（推荐）" class="headerlink" title="方式二：GitHub Actions 自动部署（推荐）"></a>方式二：GitHub Actions 自动部署（推荐）</h3><p>创建 <code>.github/workflows/deploy.yml</code> 文件：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="string">write</span></span><br><span class="line">  <span class="attr">id-token:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">submodules:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;18&#x27;</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">files</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npx</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure><h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><ol><li>在 GitHub 创建仓库 <code>username.github.io</code></li><li>推送代码到仓库</li><li>进入仓库 Settings -&gt; Pages</li><li>选择 <code>gh-pages</code> 分支作为源</li><li>等待部署完成</li></ol><h2 id="自定义域名"><a href="#自定义域名" class="headerlink" title="自定义域名"></a>自定义域名</h2><p>如果需要绑定自定义域名：</p><ol><li>在仓库根目录创建 <code>CNAME</code> 文件，内容为域名</li><li>配置 DNS 解析</li><li>在 GitHub Pages 设置中填写自定义域名</li></ol><h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="部署失败"><a href="#部署失败" class="headerlink" title="部署失败"></a>部署失败</h3><ul><li>检查 Node.js 版本</li><li>查看 GitHub Actions 日志</li><li>确认依赖安装成功</li></ul><h3 id="页面无法访问"><a href="#页面无法访问" class="headerlink" title="页面无法访问"></a>页面无法访问</h3><ul><li>确认分支设置正确</li><li>检查 CNAME 配置</li><li>等待 DNS 生效</li></ul><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>GitHub Pages 是免费且可靠的静态网站托管服务，配合 GitHub Actions 可以实现自动化部署，非常适合个人博客和项目文档。</p>]]></content>
       
       
       <categories>
@@ -46,39 +19,10 @@
       
       
         <tags>
-            
-            <tag> CI/CD </tag>
-            
-            <tag> GitHub Actions </tag>
-            
-            <tag> Hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hexo 博客部署指南：GitHub Pages 一键部署</title>
-      <link href="/2026/06/14/hexo-deploy-guide/"/>
-      <url>/2026/06/14/hexo-deploy-guide/</url>
-      
-        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文记录如何将 Hexo 博客部署到 GitHub Pages，实现 push 即部署。</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul><li>GitHub 账号</li><li>安装 Node.js (&gt;&#x3D; 18)</li><li>安装 Git</li></ul><h2 id="步骤一：创建-GitHub-仓库"><a href="#步骤一：创建-GitHub-仓库" class="headerlink" title="步骤一：创建 GitHub 仓库"></a>步骤一：创建 GitHub 仓库</h2><p>创建一个名为 <code>你的用户名.github.io</code> 的仓库。</p><h2 id="步骤二：本地初始化"><a href="#步骤二：本地初始化" class="headerlink" title="步骤二：本地初始化"></a>步骤二：本地初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><h2 id="步骤三：安装主题"><a href="#步骤三：安装主题" class="headerlink" title="步骤三：安装主题"></a>步骤三：安装主题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-anzhiyu</span><br></pre></td></tr></table></figure><p>在 <code>_config.yml</code> 中设置：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">anzhiyu</span></span><br></pre></td></tr></table></figure><h2 id="步骤四：本地预览"><a href="#步骤四：本地预览" class="headerlink" title="步骤四：本地预览"></a>步骤四：本地预览</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure><p>访问 <code>http://localhost:4000</code> 查看效果。</p><h2 id="步骤五：部署到-GitHub-Pages"><a href="#步骤五：部署到-GitHub-Pages" class="headerlink" title="步骤五：部署到 GitHub Pages"></a>步骤五：部署到 GitHub Pages</h2><h3 id="方式一：使用-hexo-deployer-git"><a href="#方式一：使用-hexo-deployer-git" class="headerlink" title="方式一：使用 hexo-deployer-git"></a>方式一：使用 hexo-deployer-git</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">hexo clean &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure><h3 id="方式二：使用-GitHub-Actions（推荐）"><a href="#方式二：使用-GitHub-Actions（推荐）" class="headerlink" title="方式二：使用 GitHub Actions（推荐）"></a>方式二：使用 GitHub Actions（推荐）</h3><p>在仓库中创建 <code>.github/workflows/deploy.yml</code>，每次 push 自动构建部署。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>整个流程非常简单：</p><ol><li>本地写文章 (<code>hexo new &quot;文章标题&quot;</code>)</li><li>Git push</li><li>GitHub Actions 自动构建部署</li><li>1 分钟内上线</li></ol><hr><p><em>Happy blogging! 🎉</em></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 技术 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Hexo </tag>
             
             <tag> GitHub </tag>
+            
+            <tag> 部署 </tag>
             
             <tag> 教程 </tag>
             
@@ -89,25 +33,52 @@
     
     
     <entry>
-      <title>Hello World - 我的博客上线了</title>
-      <link href="/2026/06/14/hello-world/"/>
-      <url>/2026/06/14/hello-world/</url>
+      <title>Markdown 写作指南</title>
+      <link href="/2026/06/15/markdown-guide/"/>
+      <url>/2026/06/15/markdown-guide/</url>
       
-        <content type="html"><![CDATA[<h2 id="博客上线了"><a href="#博客上线了" class="headerlink" title="博客上线了"></a>博客上线了</h2><p>经过一番折腾，我的个人博客终于上线了！</p><h3 id="为什么写博客？"><a href="#为什么写博客？" class="headerlink" title="为什么写博客？"></a>为什么写博客？</h3><ol><li><strong>记录学习</strong> — 把学到的东西写下来，加深理解</li><li><strong>分享经验</strong> — 踩过的坑，希望能帮到别人</li><li><strong>沉淀思考</strong> — 写作是最好的思考方式</li></ol><h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><p>本站使用：</p><ul><li><strong><a href="https://hexo.io/">Hexo</a></strong> — 静态博客框架</li><li><strong><a href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu">AnZhiYu</a></strong> — 博客主题</li><li><strong>GitHub Pages</strong> — 托管部署</li></ul><h3 id="接下来的计划"><a href="#接下来的计划" class="headerlink" title="接下来的计划"></a>接下来的计划</h3><ul><li>写一些技术笔记</li><li>记录项目经验</li><li>分享日常生活</li></ul><blockquote><p>万事开头难，但开了头就不难了。</p></blockquote><hr><p><em>如果你也想搭建一个类似的博客，可以参考我的部署指南。</em></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="什么是-Markdown？"><a href="#什么是-Markdown？" class="headerlink" title="什么是 Markdown？"></a>什么是 Markdown？</h2><p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档。</p><h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br></pre></td></tr></table></figure><h3 id="粗体和斜体"><a href="#粗体和斜体" class="headerlink" title="粗体和斜体"></a>粗体和斜体</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="strong">**<span class="emphasis">*粗斜体文本*</span>**</span></span><br></pre></td></tr></table></figure><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>无序列表：</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 项目1</span><br><span class="line"><span class="bullet">-</span> 项目2</span><br><span class="line"><span class="bullet">-</span> 项目3</span><br></pre></td></tr></table></figure><p>有序列表：</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项</span><br><span class="line"><span class="bullet">2.</span> 第二项</span><br><span class="line"><span class="bullet">3.</span> 第三项</span><br></pre></td></tr></table></figure><h3 id="链接和图片"><a href="#链接和图片" class="headerlink" title="链接和图片"></a>链接和图片</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">链接文字</span>](<span class="link">https://example.com</span>)</span><br><span class="line">![<span class="string">图片描述</span>](<span class="link">https://example.com/image.jpg</span>)</span><br></pre></td></tr></table></figure><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>行内代码：`code`</p><p>代码块：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hello</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 这是一段引用文字</span></span><br></pre></td></tr></table></figure><h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">| 列1 | 列2 | 列3 |</span><br><span class="line">|-----|-----|-----|</span><br><span class="line">| 内容1 | 内容2 | 内容3 |</span><br></pre></td></tr></table></figure><h2 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h2><h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [x] 已完成任务</span><br><span class="line"><span class="bullet">-</span> [ ] 未完成任务</span><br></pre></td></tr></table></figure><h3 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">这里有一个脚注[^1]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">^1</span>]: <span class="link">这是脚注内容</span></span><br></pre></td></tr></table></figure><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Markdown 简单易学，是写作和技术文档的首选格式。掌握这些基本语法，就能满足大部分写作需求。</p>]]></content>
       
       
       <categories>
           
-          <category> 生活日常 </category>
+          <category> 学习 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 随笔 </tag>
+            <tag> 教程 </tag>
+            
+            <tag> Markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>你好，世界！欢迎来到我的博客</title>
+      <link href="/2026/06/15/hello-world/"/>
+      <url>/2026/06/15/hello-world/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>欢迎来到我的博客！这是使用 Hexo + Anzhiyu 主题搭建的个人博客。</p><h2 id="为什么选择-Hexo？"><a href="#为什么选择-Hexo？" class="headerlink" title="为什么选择 Hexo？"></a>为什么选择 Hexo？</h2><p>Hexo 是一个快速、简洁且高效的博客框架，具有以下优点：</p><ul><li><strong>速度快</strong>：基于 Node.js，生成速度极快</li><li><strong>Markdown 支持</strong>：使用 Markdown 写作，简单高效</li><li><strong>丰富的主题</strong>：拥有大量精美的主题可供选择</li><li><strong>易于部署</strong>：支持多种部署方式</li></ul><h2 id="为什么选择-Anzhiyu-主题？"><a href="#为什么选择-Anzhiyu-主题？" class="headerlink" title="为什么选择 Anzhiyu 主题？"></a>为什么选择 Anzhiyu 主题？</h2><p>Anzhiyu 是一个功能丰富、设计精美的 Hexo 主题，主要特点包括：</p><ul><li>响应式设计，支持移动端</li><li>内置深色模式</li><li>支持多种评论系统</li><li>丰富的自定义选项</li><li>支持音乐播放器</li></ul><h2 id="博客搭建过程"><a href="#博客搭建过程" class="headerlink" title="博客搭建过程"></a>博客搭建过程</h2><h3 id="1-安装-Hexo"><a href="#1-安装-Hexo" class="headerlink" title="1. 安装 Hexo"></a>1. 安装 Hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><h3 id="2-安装-Anzhiyu-主题"><a href="#2-安装-Anzhiyu-主题" class="headerlink" title="2. 安装 Anzhiyu 主题"></a>2. 安装 Anzhiyu 主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git</span><br></pre></td></tr></table></figure><h3 id="3-配置主题"><a href="#3-配置主题" class="headerlink" title="3. 配置主题"></a>3. 配置主题</h3><p>编辑 <code>_config.anzhiyu.yml</code> 文件进行个性化配置。</p><h3 id="4-部署到-GitHub-Pages"><a href="#4-部署到-GitHub-Pages" class="headerlink" title="4. 部署到 GitHub Pages"></a>4. 部署到 GitHub Pages</h3><p>使用 GitHub Actions 实现自动部署。</p><h2 id="后续计划"><a href="#后续计划" class="headerlink" title="后续计划"></a>后续计划</h2><ul><li>完善博客内容</li><li>配置评论系统</li><li>添加更多功能</li></ul><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>博客搭建完成，接下来就是持续输出优质内容了。希望这个博客能够帮助到更多人，也欢迎交流讨论！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
             
             <tag> 博客 </tag>
+            
+            <tag> Hexo </tag>
             
         </tags>
       
